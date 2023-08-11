@@ -35,11 +35,11 @@ cd locadora-veiculos
 
 - Suba a plicação com um dos comandos abaixo (`buid` para produção ou apenas `make` para desenvolvimento)
 ```bash
-sudo make build
+make build
 ```
 
 ```bash
-sudo make
+make
 ```
 
 
@@ -53,7 +53,7 @@ O acesso pode ser realizado via url `http://localhost:8080/`
 
 Interrompe a execução dos containers
 ```bash
-sudo make down
+make down
 ```
 
 
