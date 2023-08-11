@@ -19,7 +19,7 @@ install: down
 	docker-compose exec app php artisan key:generate
 
 uninstall: down
-	cd ../ && rm -rf laravel-api
+	cd ../ && rm -rf locadora-veiculos
 
 status:
 	docker-compose ps -a
