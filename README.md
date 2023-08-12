@@ -1,4 +1,4 @@
-# Locadora de Vaículos
+# Locadora de Veículos
 
 Sistema desenvolvido em Laravel utilizando as principais funcionalidades do framework.
 
