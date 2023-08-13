@@ -18,7 +18,7 @@ class LoginController extends Controller
             return redirect()->back()->withErrors('Usuário e ou senha inválidos');
         }
 
-        return redirect()->route('cars.index');
+        return redirect()->route('reserves.index');
     }
 
     public function logout()

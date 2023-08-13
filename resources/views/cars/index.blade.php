@@ -35,10 +35,13 @@
                         @csrf
                         @method('DELETE')                    
 
-                        <button href="" class="btn btn-sm btn-danger">
+                        <button href="" class="btn btn-sm btn-danger me-2">
                             Remover
                         </button>
                     </form>
+                    <a href="{{ route('reserves.create', $car->id) }}" class="btn btn-sm btn-primary me-2">
+                        Reservar
+                    </a>
                 </div>
             </td>
         </tr>
