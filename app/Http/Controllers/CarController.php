@@ -48,6 +48,7 @@ class CarController extends Controller
     {
         try {
             $car->fill($request->all());
+            $car->save();
 
             $request->session()->flash('messageSuccess', 'Veículo atualizado com sucesso');
 
