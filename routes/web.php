@@ -16,8 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [ LoginController::class, 'index' ])->name('index');
-Route::post('/login', [ LoginController::class, 'login' ])->name('login');
+Route::get('/login', [ LoginController::class, 'index' ])->name('login');
+Route::post('/login', [ LoginController::class, 'login' ])->name('signin');
 
-Route::resource('/users', UserController::class)->except('show');
-Route::resource('/cars', CarController::class)->except('show');
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', [ LoginController::class, 'logout' ])->name('logout');
+
+    Route::resource('/users', UserController::class)->except('show');
+    Route::resource('/cars', CarController::class)->except('show');
+});

@@ -6,6 +6,7 @@ use App\Http\Requests\UserFormRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -28,7 +29,10 @@ class UserController extends Controller
     public function store(UserFormRequest $request)
     {
         try {
-            User::create($request->all());
+            $data = $request->all();
+            $data['password'] = Hash::make($data['password']);
+
+            User::create($data);
 
             $request->session()->flash('messageSuccess', 'Usuário inserido com sucesso');
 
@@ -47,7 +51,10 @@ class UserController extends Controller
     public function update(User $user, UserFormRequest $request)
     {
         try {
-            $user->fill($request->all());
+            $data = $request->all();
+            $data['password'] = Hash::make($data['password']);
+
+            $user->fill($data);
             $user->save();
 
             $request->session()->flash('messageSuccess', 'Usuário atualizado com sucesso');
