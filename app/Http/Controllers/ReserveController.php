@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ReserveCreatedEvent;
 use App\Http\Requests\ReserveFormRequest;
 use App\Models\Car;
 use App\Models\Reserve;
@@ -56,6 +57,8 @@ class ReserveController extends Controller
             $reserve->date = $request->date;
 
             $reserve->save();
+
+            ReserveCreatedEvent::dispatch($user->id, $car->id);
 
             session()->flash('messageSuccess', "Reserva realizada com sucesso");
 

@@ -13,6 +13,7 @@ class CarController extends Controller
 {
     public function index()
     {
+        try {
         $cars = Car::all();
 
         $messageSuccess = session('messageSuccess');
@@ -20,6 +21,10 @@ class CarController extends Controller
         return view('cars.index')
             ->with('cars', $cars)
             ->with('messageSuccess', $messageSuccess);
+
+        } catch(Exception $e) {
+            return back()->withErrors($e->getMessage());
+        }
     }
 
     public function create()
@@ -64,6 +69,10 @@ class CarController extends Controller
     public function destroy(Request $request)
     {
         try {
+            if (Reserve::where('cars_id', $request->car)) {
+                throw new Exception('Não é possível remover veículos que possuem reservas cadastradas');
+            } 
+
             Car::destroy($request->car);
 
             $request->session()->flash('messageSuccess', 'Veículo removido com sucesso');

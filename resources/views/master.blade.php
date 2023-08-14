@@ -14,9 +14,8 @@
                 <a class="navbar-brand"><b>Locadora</b></a>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Reservas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Usuários</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url( '/cars' ) }}">Veículos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/report') }}">Relatório</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Usuários</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/logout') }}">Sair</a></li>
                 </ul>
             </div>
