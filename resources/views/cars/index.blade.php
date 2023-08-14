@@ -39,6 +39,9 @@
                             Remover
                         </button>
                     </form>
+                    <a href="{{ route('cars.availability', $car->id) }}" class="btn btn-sm btn-dark me-2">
+                        Disponibilidade
+                    </a>
                     <a href="{{ route('reserves.create', $car->id) }}" class="btn btn-sm btn-primary me-2">
                         Reservar
                     </a>

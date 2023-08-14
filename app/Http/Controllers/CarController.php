@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarFormRequest;
 use App\Models\Car;
+use App\Models\Reserve;
 use Exception;
 use Illuminate\Http\Request;
+use stdClass;
 
 class CarController extends Controller
 {
@@ -67,6 +69,57 @@ class CarController extends Controller
             $request->session()->flash('messageSuccess', 'Veículo removido com sucesso');
 
             return redirect()->route('cars.index');
+
+        } catch(Exception $e) {
+            return back()->withErrors($e->getMessage());
+        }
+    }
+
+    public function availability(Car $car, Request $request)
+    {
+        try {
+            $month = $request->month ?? date('m');
+            $year  = $request->year  ?? date('Y');
+
+            $reserves = Reserve::query()
+                ->orderBy('date')
+                ->where('cars_id', $car->id)
+                ->whereMonth('date', $month)
+                ->whereYear('date', $year)
+                ->get();
+
+            // Obtém número de dias para o mês e ano informados
+            $numberDays = date('t', strtotime("$year-$month-01"));
+
+            $availabilities = [];
+
+            // itera sobre cada dia
+            for ($i = 1; $i <= $numberDays; $i++) {
+                // Obtém a data
+                $date =  "$year-" .
+                         str_pad($month, 2, '0', STR_PAD_LEFT) . "-" .
+                         str_pad($i, 2, '0', STR_PAD_LEFT);
+
+                $obj = new stdClass();
+                $obj->date = $date;
+                $obj->user = null;
+
+                // Verifica se há reserva para o dia
+                foreach ($reserves as $reserve) {
+                    if ($reserve->date != $date) {
+                        continue;
+                    }
+                    $obj->user = $reserve->user->name;
+                }
+
+                $availabilities[] = $obj;
+            }
+
+            return view('cars.availability')
+                ->with('availabilities', $availabilities)
+                ->with('month', $month)
+                ->with('year', $year)
+                ->with('car', $car);
 
         } catch(Exception $e) {
             return back()->withErrors($e->getMessage());

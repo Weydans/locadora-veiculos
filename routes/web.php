@@ -31,5 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/reserves/{reserve}', [ ReserveController::class, 'destroy' ])->name('reserves.destroy');
 
     Route::resource('/users', UserController::class)->except('show');
+
+    Route::get('/cars/{car}/availability', [CarController::class, 'availability'])->name('cars.availability');
     Route::resource('/cars', CarController::class)->except('show');
 });
