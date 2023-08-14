@@ -42,6 +42,12 @@ make build
 make
 ```
 
+- Adiciona o primeiro usuário do Sistema (usuário padrão do láravel com adição de cpf fake) email:`test@example.com` senha:`password`
+
+```bash
+make seed
+```
+
 
 ## Acesso
 

@@ -18,6 +18,9 @@ install: down
 	docker-compose exec app composer install
 	docker-compose exec app php artisan key:generate
 
+seed:
+	docker-compose exec app php artisan db:seed
+
 uninstall: down
 	cd ../ && rm -rf locadora-veiculos
 
